@@ -252,7 +252,7 @@ if not st.session_state.authentifie:
                 else:
                     st.markdown("<div class='notification notification-error'>⚠️ Identifiants incorrects. Veuillez réessayer.</div>", unsafe_allow_html=True)
         
-        st.markdown("<div class='footer'>© 2025 BankruptcyPro - EMSI Casablanca | Développé par SALWA BALLOUTI et ADAMA TRAORE</div>", unsafe_allow_html=True)
+        st.markdown("<div class='footer'>© 2025 BankruptcyPro - EMSI Casablanca | Développé par SALWA BALLOUTI</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -279,7 +279,7 @@ else:
             st.session_state.authentifie = False
             st.rerun()
         
-        st.markdown("<div class='footer' style='color: rgba(255,255,255,0.7);'>Développé par:<br>SALWA BALLOUTI et ADAMA TRAORE</div>", unsafe_allow_html=True)
+        st.markdown("<div class='footer' style='color: rgba(255,255,255,0.7);'>Développé par:<br>SALWA BALLOUTI</div>", unsafe_allow_html=True)
 
     # Chargement des modèles
     @st.cache_resource
@@ -860,4 +860,4 @@ else:
         st.markdown("</div>", unsafe_allow_html=True)
     
     # Footer global
-    st.markdown("<div class='footer fade-in'>© 2025 BankruptcyPro - EMSI Casablanca | Développé par SALWA BALLOUTI et ADAMA TRAORE</div>", unsafe_allow_html=True)
+    st.markdown("<div class='footer fade-in'>© 2025 BankruptcyPro - EMSI Casablanca | Développé par SALWA BALLOUTI</div>", unsafe_allow_html=True)
