@@ -84,5 +84,6 @@ streamlit run app_streamlit_prediction_rf_xgb.py
 
 ## 📄 Licence
 
-Ce projet est distribué sous la licence MIT.
-Vous êtes libre de l’utiliser, le modifier et le distribuer à condition de conserver les mentions de copyright et la licence.
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.

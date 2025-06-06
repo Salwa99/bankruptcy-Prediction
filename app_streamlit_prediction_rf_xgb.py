@@ -208,30 +208,25 @@ def load_lottieurl(url):
     except:
         return None
 
-# Animation pour la page de login
 login_animation = load_lottieurl("https://assets10.lottiefiles.com/packages/lf20_mk6o3c8l.json")
-# Animation pour l'analyse financière
 finance_animation = load_lottieurl("https://assets7.lottiefiles.com/packages/lf20_qp1q7mct.json")
 
 # Authentification avec session
 if "authentifie" not in st.session_state:
     st.session_state.authentifie = False
 
-# Page de login stylisée
 if not st.session_state.authentifie:
-    # Conteneur principal avec deux colonnes
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        # st.markdown("<div class='fade-in'>", unsafe_allow_html=True)
-        # st.markdown("<div class='login-container'>", unsafe_allow_html=True)
+       
         
-        # Logo et titre
+        
         st.markdown("<div class='logo-text'>📊 BankruptcyPro</div>", unsafe_allow_html=True)
         st.markdown("<p style='color: #6B778C; margin-top: 0; text-align:center;'>Système intelligent de prédiction de faillite</p>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
         
-        # Animation
+        
         if login_animation:
             st_lottie(login_animation, height=200, key="login_anim")
         
@@ -240,7 +235,6 @@ if not st.session_state.authentifie:
         user = st.text_input("Nom d'utilisateur", placeholder="Entrez votre identifiant")
         pwd = st.text_input("Mot de passe", type="password", placeholder="Entrez votre mot de passe")
         
-        # Bouton de connexion avec animation de chargement
         if st.button("🔐 Se connecter", key="login_btn"):
             with st.spinner("Vérification des identifiants..."):
                 time.sleep(1)  # Simule une vérification
@@ -258,7 +252,6 @@ if not st.session_state.authentifie:
 
 # Dashboard principal après authentification
 else:
-    # Sidebar pour la navigation
     with st.sidebar:
         st.markdown("<div class='logo-text' style=' margin: 20px 0;'>📊 BankruptcyPro</div>", unsafe_allow_html=True)
         
@@ -273,7 +266,6 @@ else:
                                    ["Random Forest", "XGBoost"], 
                                    help="Choisissez l'algorithme à utiliser pour la prédiction")
         
-        # Bouton de déconnexion
         st.markdown("---")
         if st.button("🔓 Se déconnecter", key="logout_btn"):
             st.session_state.authentifie = False
@@ -287,7 +279,6 @@ else:
         try:
             return joblib.load("C:/Users/Salwa/Documents/study2/pfarandom_forest_4_features.pkl")
         except:
-            # Modèle fictif pour la démonstration
             from sklearn.ensemble import RandomForestClassifier
             model = RandomForestClassifier()
             X = np.random.rand(100, 4)
@@ -300,7 +291,6 @@ else:
         try:
             return joblib.load("C:/Users/Salwa/Documents/study2/pfa/xgboost_model.pkl")
         except:
-            # Modèle fictif pour la démonstration
             from sklearn.ensemble import GradientBoostingClassifier
             model = GradientBoostingClassifier()
             X = np.random.rand(100, 4)
@@ -310,11 +300,9 @@ else:
 
     model = load_random_forest() if model_choice == "Random Forest" else load_xgboost()
 
-    # Contenu principal basé sur la page sélectionnée
     if page == "🏠 Dashboard":
         st.markdown("<h1 class='fade-in'>Tableau de Bord Principal</h1>", unsafe_allow_html=True)
         
-        # Résumé des statistiques
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             st.markdown("<div class='metric-card fade-in'>", unsafe_allow_html=True)
@@ -364,7 +352,6 @@ else:
         
         with col2:
             st.markdown("<div class='card fade-in'>", unsafe_allow_html=True)
-            # Données temporelles fictives
             mois = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin']
             tendance = [10.2, 11.5, 12.8, 13.1, 12.6, 11.8]
             
@@ -393,7 +380,6 @@ else:
         }
         df = pd.DataFrame(data)
         
-        # Appliquer une mise en forme conditionnelle
         def color_risk(val):
             color = "rgba(255, 87, 87, {})".format(val/100)
             return f'background-color: {color}; color: white; font-weight: bold;'
@@ -404,7 +390,6 @@ else:
     elif page == "📊 Prédiction":
         st.markdown("<h1 class='fade-in'>Analyse Prédictive de Faillite</h1>", unsafe_allow_html=True)
         
-        # Animation et description
         col1, col2 = st.columns([1, 2])
         with col1:
             if finance_animation:
@@ -496,26 +481,21 @@ else:
             return reasons, explanation_text
         
         if st.button("📊 Analyser le risque", key="predict_btn"):
-            # Affichage avec animation de chargement
             with st.spinner("Analyse en cours..."):
                 time.sleep(1)  # Simule le temps de calcul
                 X = np.array([[ni, nw, eps, re]])
                 pred = model.predict(X)[0]
                 prob = model.predict_proba(X)[0]
                 
-                # Obtenons des explications détaillées
                 reasons, explanation_text = detailed_explanation(ni, nw, eps, re, prob[1])
                 
-                # Affichage du résultat avec animation
                 st.markdown("<div class='fade-in'>", unsafe_allow_html=True)
                 
-                # Résultat principal
                 if pred == 1:
                     st.markdown(f"<div class='notification notification-error'><h3>🔴 Risque élevé de faillite détecté</h3></div>", unsafe_allow_html=True)
                 else:
                     st.markdown(f"<div class='notification notification-success'><h3>🟢 Entreprise financièrement stable</h3></div>", unsafe_allow_html=True)
                 
-                # Visualisation avec jauge Plotly
                 fig = go.Figure(go.Indicator(
                     mode = "gauge+number+delta",
                     value = prob[1]*100,
@@ -541,11 +521,9 @@ else:
                 fig.update_layout(height=300)
                 st.plotly_chart(fig, use_container_width=True)
                 
-                # Détails de l'analyse
                 col1, col2 = st.columns([1, 2])
                 
                 with col1:
-                    # Résumé des indicateurs clés
                     st.markdown("### Indicateurs clés")
                     st.markdown("<div class='card'>", unsafe_allow_html=True)
                     metrics = {
@@ -560,7 +538,6 @@ else:
                     st.markdown("</div>", unsafe_allow_html=True)
                 
                 with col2:
-                    # Explications détaillées
                     st.markdown("### Facteurs de risque identifiés")
                     st.markdown("<div class='card'>", unsafe_allow_html=True)
                     
@@ -859,5 +836,4 @@ else:
             )
         st.markdown("</div>", unsafe_allow_html=True)
     
-    # Footer global
     st.markdown("<div class='footer fade-in'>© 2025 BankruptcyPro - EMSI Casablanca | Développé par SALWA BALLOUTI</div>", unsafe_allow_html=True)
